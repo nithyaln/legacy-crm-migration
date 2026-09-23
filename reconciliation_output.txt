@@ -1,0 +1,20 @@
+==================================================
+RECONCILIATION REPORT
+==================================================
+Raw source rows (incl. duplicates):     2150
+Expected unique rows after cleaning:    2000
+Rows actually migrated:                 2000
+Row count difference:                   0
+
+Expected total amount (source, dedup'd): 5,049,628.52
+Migrated total amount (warehouse):       5,049,628.52
+Amount discrepancy:                      0.00
+
+Breakdown by region:
+  APAC          301 orders     757,830.94
+  EMEA          607 orders   1,547,625.98
+  US            807 orders   2,017,651.75
+  Unknown       285 orders     726,519.85
+
+RESULT: PASS
+==================================================
