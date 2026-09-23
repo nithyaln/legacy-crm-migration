@@ -4,7 +4,14 @@ from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
 load_dotenv()
-engine = create_engine(os.getenv("DATABASE_URL"))
+
+_engine = None
+
+def get_engine():
+    global _engine
+    if _engine is None:
+        _engine = create_engine(os.getenv("DATABASE_URL"))
+    return _engine
 
 REGION_MAP = {
     "us": "US",
@@ -46,7 +53,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def load(df: pd.DataFrame):
-    with engine.begin() as conn:
+    with get_engine().begin() as conn:
         # Ensure schema exists
         conn.execute(text(open("schema.sql").read()))
 
