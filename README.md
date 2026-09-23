@@ -103,3 +103,17 @@ pytest -v                         # runs unit tests
 - Load in batches rather than row-by-row inserts, for performance at scale
 - Add schema versioning/migrations (e.g. Alembic) rather than a single static `schema.sql`
 - Add logging to a structured log store instead of `print()` statements
+
+## Lessons learned
+
+- **CI Python version must match your dependency lock file.** A `pip freeze`-generated
+  `requirements.txt` can pin transitive dependencies (like `numpy`, pulled in by `pandas`)
+  to versions that require a newer Python than what's specified in CI, causing installs
+  to fail even though everything works locally. Fixed by aligning the CI workflow's
+  Python version to match the environment the lock file was generated from.
+- **Avoid creating database connections at import time.** Originally `migrate.py` created
+  its SQLAlchemy engine as a module-level variable, which meant simply importing the
+  `clean()` function for unit testing triggered a live database connection attempt — and
+  failed in CI, where no `.env` file exists. Fixed by lazy-loading the engine inside a
+  `get_engine()` function, so tests can exercise pure logic without needing live
+  infrastructure.
