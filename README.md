@@ -1,3 +1,5 @@
+[![Run Tests](https://github.com/nithyaln/legacy-crm-migration/actions/workflows/test.yml/badge.svg)](https://github.com/nithyaln/legacy-crm-migration/actions/workflows/test.yml)
+
 # Legacy CRM Migration
 
 Migrates a messy, denormalized legacy CRM export into a validated star-schema
